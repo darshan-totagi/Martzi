@@ -14,11 +14,17 @@ const heroImage = require('../../assets/images/hero-groceries.jpg');
 export default function HomeScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { selectedLocation, setSelectedLocation, marts, products, cart, cartCount, cartSubtotal } = useApp();
+  const { selectedLocation, setSelectedLocation, marts, products, cart, cartCount, cartSubtotal, currentUser, hydrated } = useApp();
   const [search, setSearch] = useState('');
   const [locationLoading, setLocationLoading] = useState(false);
   const nearbyMarts = marts.filter((mart) => mart.approvalStatus === 'approved' && mart.distance <= 5).sort((a, b) => a.distance - b.distance);
   const featuredProducts = products.filter((product) => product.featured);
+
+  useEffect(() => {
+    if (hydrated && !currentUser) {
+      router.replace('/login');
+    }
+  }, [hydrated, currentUser]);
 
   useEffect(() => { void requestLocation(false); }, []);
 
@@ -53,9 +59,31 @@ export default function HomeScreen() {
           <View><Text style={[styles.deliveringLabel, { color: colors.mutedForeground }]}>Delivering to</Text><Text style={[styles.locationText, { color: colors.foreground }]} numberOfLines={1}>{locationLoading ? 'Finding you…' : selectedLocation}</Text></View>
           <Feather name="chevron-down" size={17} color={colors.mutedForeground} />
         </Pressable>
-        <View style={styles.headerActions}><Pressable onPress={() => Alert.alert('You are all caught up', 'Order updates and fresh offers will appear here.')} style={[styles.headerIcon, { backgroundColor: colors.card, borderColor: colors.border }]}><Feather name="bell" size={19} color={colors.foreground} /><View style={[styles.notificationDot, { backgroundColor: colors.accent }]} /></Pressable><Pressable onPress={() => router.push('/(tabs)/profile')} style={[styles.avatar, { backgroundColor: colors.primary }]}><Text style={[styles.avatarText, { color: colors.primaryForeground }]}>AR</Text></Pressable></View>
+        {(() => {
+          const name = currentUser?.name || 'Guest User';
+          const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'GU';
+          return (
+            <View style={styles.headerActions}>
+              <Pressable onPress={() => Alert.alert('You are all caught up', 'Order updates and fresh offers will appear here.')} style={[styles.headerIcon, { backgroundColor: colors.card, borderColor: colors.border }]}>
+                <Feather name="bell" size={19} color={colors.foreground} />
+                <View style={[styles.notificationDot, { backgroundColor: colors.accent }]} />
+              </Pressable>
+              <Pressable onPress={() => router.push('/(tabs)/profile')} style={[styles.avatar, { backgroundColor: colors.primary }]}>
+                <Text style={[styles.avatarText, { color: colors.primaryForeground }]}>{initials}</Text>
+              </Pressable>
+            </View>
+          );
+        })()}
       </View>
-      <View style={styles.greeting}><Text style={[styles.greetingTitle, { color: colors.foreground }]}>Good morning, Ananya</Text><Text style={[styles.greetingBody, { color: colors.mutedForeground }]}>Your neighborhood is looking fresh today.</Text></View>
+      {(() => {
+        const firstName = currentUser?.name ? currentUser.name.split(' ')[0] : 'Guest';
+        return (
+          <View style={styles.greeting}>
+            <Text style={[styles.greetingTitle, { color: colors.foreground }]}>Good morning, {firstName}</Text>
+            <Text style={[styles.greetingBody, { color: colors.mutedForeground }]}>Your neighborhood is looking fresh today.</Text>
+          </View>
+        );
+      })()}
       <SearchBar value={search} onChangeText={setSearch} />
       {searchResults.length > 0 && <View style={[styles.searchResults, { backgroundColor: colors.card, borderColor: colors.border }]}>{searchResults.slice(0, 3).map((product) => <Pressable key={product.id} onPress={() => router.push(`/mart/${product.martId}`)} style={styles.searchResult}><Image source={product.image} style={styles.searchResultImage} /><View style={{ flex: 1 }}><Text style={[styles.searchResultTitle, { color: colors.foreground }]}>{product.name}</Text><Text style={[styles.searchResultMeta, { color: colors.mutedForeground }]}>{product.brand} · ₹{product.discountPrice}</Text></View><Feather name="arrow-up-right" size={16} color={colors.primary} /></Pressable>)}</View>}
       <Pressable style={styles.hero} onPress={() => router.push('/(tabs)/explore')}><Image source={heroImage} style={StyleSheet.absoluteFill} resizeMode="cover" /><LinearGradient colors={['rgba(21,57,45,0.92)', 'rgba(21,57,45,0.25)']} start={{ x: 0, y: 0.6 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} /><View style={styles.heroCopy}><Pill label="THIS WEEKEND" /><Text style={[styles.heroTitle, { color: colors.primaryForeground }]}>Fresh picks, closer than you think.</Text><Text style={[styles.heroBody, { color: colors.primaryForeground }]}>Save up to 30% on everyday essentials from marts near you.</Text><View style={[styles.heroCta, { backgroundColor: colors.accent }]}><Text style={[styles.heroCtaText, { color: colors.accentForeground }]}>Shop deals</Text><Feather name="arrow-up-right" size={15} color={colors.accentForeground} /></View></View></Pressable>
