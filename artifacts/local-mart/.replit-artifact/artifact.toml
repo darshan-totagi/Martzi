@@ -1,0 +1,24 @@
+kind = "mobile"
+previewPath = "/"
+title = "LocalMart"
+description = "A nearby grocery marketplace for discovering local marts within 5 km, browsing products, managing a single-mart cart, and tracking orders. Includes customer, mart owner, and admin experiences in one mobile app."
+version = "1.0.0"
+id = "artifacts/local-mart"
+router = "expo-domain"
+
+[[services]]
+name = "expo"
+ensurePreviewReachable = "/status"
+paths = [ "/" ]
+localPort = 23002
+
+[services.development]
+run = "pnpm --filter @workspace/local-mart run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/local-mart", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/local-mart", "run", "serve" ]
+
+[services.env]
+PORT = "23002"
+BASE_PATH = "/"

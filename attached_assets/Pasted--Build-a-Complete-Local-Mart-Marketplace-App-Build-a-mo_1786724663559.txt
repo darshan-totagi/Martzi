@@ -1,0 +1,897 @@
+# Build a Complete Local Mart Marketplace App
+
+Build a modern, production-ready **multi-vendor grocery/mart marketplace application** where local marts can register their businesses, add and manage products, and customers can discover nearby marts within a **5 km radius**, browse products, add items to cart, and place orders.
+
+The application should have **three main roles**:
+
+1. Customer/User
+2. Mart/Store Owner
+3. Super Admin
+
+---
+
+## 1. Customer App
+
+### Location Detection
+
+When the user opens the application:
+
+* Request permission to access the user's location.
+* Automatically detect latitude and longitude.
+* Determine the user's current area.
+* Find registered marts within a **5 km radius**.
+* Sort nearby marts by distance.
+* Show the distance from the user to each mart.
+* Allow the user to manually change their delivery location.
+* If location permission is denied, allow the user to enter their location manually.
+
+Use Google Maps/Mapbox or another reliable maps and geolocation service.
+
+---
+
+# 2. Home Page
+
+Create a visually attractive home page similar to modern grocery-delivery applications.
+
+### Header
+
+Show:
+
+* User's current location
+* Location selector
+* Search bar
+* Notification icon
+* Profile icon
+
+Example:
+
+**Delivering to**
+`Electronic City, Bengaluru ▼`
+
+### Advertisement Section
+
+Create a large promotional banner/carousel.
+
+Examples:
+
+* "Fresh groceries delivered to your doorstep"
+* "Up to 30% OFF"
+* "Shop from marts near you"
+* "Weekend Grocery Deals"
+* "Free delivery on orders above ₹499"
+
+The admin should be able to create, update, activate/deactivate advertisements.
+
+### Categories
+
+Show categories such as:
+
+* Fruits & Vegetables
+* Dairy
+* Bakery
+* Beverages
+* Snacks
+* Personal Care
+* Household
+* Cleaning
+* Grocery
+* Baby Care
+* Stationery
+* Others
+
+Categories should be dynamically managed by the admin.
+
+### Nearby Marts
+
+Show marts within 5 km.
+
+Each mart card should display:
+
+* Mart logo/image
+* Mart name
+* Rating
+* Distance
+* Estimated delivery time
+* Minimum order value
+* Open/Closed status
+* Delivery fee
+* Offer badge if available
+
+Example:
+
+**Sri Lakshmi Super Mart**
+⭐ 4.5 | 1.8 km
+25–35 min
+10% OFF
+
+Add a **"View Mart"** button.
+
+---
+
+# 3. Search
+
+Create a powerful global search.
+
+Users should be able to search:
+
+* Products
+* Marts
+* Categories
+
+For example, if the user searches:
+
+`Milk`
+
+show milk products available in nearby marts.
+
+Allow filtering by:
+
+* Distance
+* Price
+* Rating
+* Category
+* Availability
+* Offers
+
+---
+
+# 4. Mart Store Page
+
+When the user selects a mart, open its dedicated store page.
+
+Display:
+
+### Mart Information
+
+* Mart name
+* Logo
+* Cover image
+* Rating
+* Distance
+* Address
+* Opening hours
+* Delivery time
+* Delivery fee
+* Contact information
+* Offers
+
+### Product Categories
+
+Example:
+
+**Groceries**
+
+* Rice
+* Wheat
+* Dal
+* Oil
+
+**Dairy**
+
+* Milk
+* Curd
+* Butter
+* Cheese
+
+### Product Cards
+
+Each product should display:
+
+* Product image
+* Product name
+* Brand
+* Quantity/weight
+* Price
+* Discounted price
+* Discount percentage
+* Stock status
+* Add button
+
+Example:
+
+**Aashirvaad Atta**
+5 kg
+₹320 ~~₹380~~
+16% OFF
+
+`[-] 1 [+]`
+
+---
+
+# 5. Cart
+
+Create a shopping cart for the selected mart.
+
+Display:
+
+* Product image
+* Product name
+* Quantity
+* Price
+* Discount
+* Remove option
+
+Show:
+
+### Bill Details
+
+* Item total
+* Discount
+* Delivery fee
+* Platform fee
+* Taxes if applicable
+* Final total
+
+Example:
+
+Item Total: ₹650
+Discount: -₹80
+Delivery: ₹30
+Platform Fee: ₹5
+
+**Total: ₹605**
+
+Important:
+
+A customer should normally be able to order products from **one mart per order**.
+
+If the customer tries to add a product from another mart, show:
+
+> "Your cart contains items from another mart. Start a new cart?"
+
+Buttons:
+
+`Cancel` | `Clear Cart & Continue`
+
+---
+
+# 6. Checkout
+
+Create a simple checkout flow.
+
+### Delivery Address
+
+Allow users to:
+
+* Add address
+* Edit address
+* Delete address
+* Select saved address
+* Use current location
+
+Address fields:
+
+* Name
+* Phone
+* House/Flat
+* Street
+* Area
+* City
+* State
+* Pincode
+* Delivery instructions
+
+### Payment Methods
+
+Support:
+
+* Cash on Delivery
+* UPI
+* Online Payment
+
+Integrate Razorpay/Stripe or another suitable payment gateway.
+
+### Order Summary
+
+Show:
+
+* Mart
+* Products
+* Quantity
+* Delivery address
+* Delivery fee
+* Total amount
+* Payment method
+
+Button:
+
+**Place Order**
+
+---
+
+# 7. Order Tracking
+
+After placing an order, show a real-time order tracking screen.
+
+Order states:
+
+`Order Placed`
+
+↓
+
+`Mart Accepted`
+
+↓
+
+`Preparing Order`
+
+↓
+
+`Ready for Delivery`
+
+↓
+
+`Out for Delivery`
+
+↓
+
+`Delivered`
+
+Display:
+
+* Order ID
+* Mart name
+* Items
+* Total amount
+* Delivery address
+* Estimated delivery time
+* Order status
+
+Allow users to contact the mart/delivery person where appropriate.
+
+---
+
+# 8. User Profile
+
+Create a profile section with:
+
+* Name
+* Email
+* Phone
+* Profile picture
+* Saved addresses
+* My Orders
+* Favorites
+* Notifications
+* Payment methods
+* Help & Support
+* Terms & Conditions
+* Privacy Policy
+* Logout
+
+---
+
+# 9. Mart Owner Registration
+
+Create a dedicated **"Register Your Mart"** flow.
+
+Mart owners should be able to register their business.
+
+Fields:
+
+* Owner name
+* Phone number
+* Email
+* Mart name
+* Mart logo
+* Mart cover image
+* Business address
+* Location
+* City
+* State
+* Pincode
+* Opening time
+* Closing time
+* Business registration details
+* Bank/payment details
+* Delivery availability
+* Minimum order value
+
+The mart location should be stored using latitude and longitude.
+
+After registration:
+
+**Status: Pending Approval**
+
+The mart should become visible to customers only after admin approval.
+
+---
+
+# 10. Mart Owner Dashboard
+
+Create a professional dashboard for mart owners.
+
+### Dashboard
+
+Show:
+
+* Today's orders
+* Today's revenue
+* Pending orders
+* Completed orders
+* Total products
+* Low-stock products
+* Active offers
+
+### Product Management
+
+Mart owners can:
+
+* Add products
+* Edit products
+* Delete products
+* Upload product images
+* Set price
+* Set discounted price
+* Set quantity/weight
+* Manage stock
+* Enable/disable products
+* Assign categories
+
+Product fields:
+
+* Product name
+* Description
+* Brand
+* Category
+* Subcategory
+* Image
+* Price
+* Discount price
+* Unit
+* Stock quantity
+* SKU
+* Active/inactive
+
+### Order Management
+
+Mart owners can view:
+
+* New orders
+* Accepted orders
+* Preparing orders
+* Ready orders
+* Completed orders
+* Cancelled orders
+
+For each order:
+
+* Order ID
+* Customer name
+* Phone
+* Products
+* Quantities
+* Total
+* Delivery address
+* Payment status
+* Order time
+
+Buttons:
+
+`Accept Order`
+
+`Reject Order`
+
+`Start Preparing`
+
+`Ready`
+
+`Complete Order`
+
+---
+
+# 11. Mart Offers
+
+Allow mart owners to create offers such as:
+
+* 10% OFF
+* Buy 1 Get 1
+* ₹50 OFF above ₹500
+* Weekend Offers
+* Product-specific discounts
+* Category discounts
+
+These offers should appear on the mart page and relevant home-page sections.
+
+---
+
+# 12. Super Admin Dashboard
+
+Create a powerful admin panel.
+
+Admin should be able to manage:
+
+### Marts
+
+* View all marts
+* Approve/reject marts
+* Suspend marts
+* Edit mart information
+* View mart location
+* View mart products
+* View mart orders
+
+### Users
+
+* View users
+* Search users
+* Suspend users
+* View order history
+
+### Products
+
+* Manage categories
+* Manage products
+* Remove inappropriate products
+
+### Advertisements
+
+Admin can:
+
+* Create advertisements
+* Upload banner
+* Add title
+* Add description
+* Add CTA
+* Set start/end date
+* Activate/deactivate advertisement
+
+### Orders
+
+Admin can view all orders and their statuses.
+
+### Analytics
+
+Show:
+
+* Total users
+* Total marts
+* Active marts
+* Total orders
+* Today's orders
+* Total revenue
+* Platform revenue
+* Top-selling products
+* Top-performing marts
+* Orders by location
+* Revenue by date
+
+Include charts and graphs.
+
+---
+
+# 13. Nearby Mart Algorithm
+
+Implement location-based mart discovery.
+
+For every registered mart, store:
+
+* Latitude
+* Longitude
+
+When a user opens the application:
+
+1. Get user's latitude and longitude.
+2. Calculate distance between user and all active marts.
+3. Only return marts within **5 km**.
+4. Sort by nearest distance.
+5. Display distance on each mart card.
+
+Use the **Haversine formula** or geospatial database queries.
+
+Example:
+
+User location:
+`12.9352, 77.6245`
+
+Mart A:
+`1.2 km away`
+
+Mart B:
+`2.8 km away`
+
+Mart C:
+`4.7 km away`
+
+Mart D:
+`7.2 km away → Do not show`
+
+If there are no marts within 5 km:
+
+> "No marts found within 5 km."
+
+Then provide:
+
+**Expand search radius**
+
+Allow users to search up to 10 km if desired.
+
+---
+
+# 14. Database Design
+
+Use a scalable database such as PostgreSQL, Supabase, Firebase, or MongoDB.
+
+Create collections/tables for:
+
+### Users
+
+* id
+* name
+* email
+* phone
+* password/auth ID
+* profile image
+* created_at
+
+### Marts
+
+* id
+* owner_id
+* name
+* logo
+* cover_image
+* description
+* address
+* latitude
+* longitude
+* opening_time
+* closing_time
+* rating
+* minimum_order
+* delivery_fee
+* status
+* approval_status
+
+### Products
+
+* id
+* mart_id
+* category_id
+* name
+* description
+* brand
+* image
+* price
+* discount_price
+* unit
+* stock
+* status
+
+### Categories
+
+* id
+* name
+* image
+* status
+
+### Orders
+
+* id
+* user_id
+* mart_id
+* total_amount
+* delivery_fee
+* payment_status
+* order_status
+* delivery_address
+* latitude
+* longitude
+* created_at
+
+### Order Items
+
+* id
+* order_id
+* product_id
+* quantity
+* price
+
+### Advertisements
+
+* id
+* title
+* description
+* image
+* CTA
+* start_date
+* end_date
+* status
+
+### Reviews
+
+* id
+* user_id
+* mart_id
+* order_id
+* rating
+* review
+
+---
+
+# 15. Authentication
+
+Implement secure authentication.
+
+Support:
+
+* Phone OTP
+* Email/password
+* Google login if possible
+
+Role-based access:
+
+`Customer`
+
+`Mart Owner`
+
+`Admin`
+
+Users must only have access to functionality permitted for their role.
+
+---
+
+# 16. UI/UX Requirements
+
+Create a modern, clean, highly polished UI.
+
+Design inspiration should be similar to modern grocery delivery applications but **do not copy any existing brand's UI exactly**.
+
+Use:
+
+* Mobile-first responsive design
+* Clean cards
+* Rounded corners
+* Modern typography
+* High-quality product images
+* Smooth animations
+* Bottom navigation on mobile
+
+Customer bottom navigation:
+
+**Home | Explore | Orders | Cart | Profile**
+
+Mart owner navigation:
+
+**Dashboard | Orders | Products | Offers | Profile**
+
+Admin navigation:
+
+**Dashboard | Marts | Users | Orders | Ads | Analytics**
+
+---
+
+# 17. Notifications
+
+Implement notifications for:
+
+### Customer
+
+* Order accepted
+* Order preparing
+* Order ready
+* Out for delivery
+* Order delivered
+* Promotional offers
+
+### Mart Owner
+
+* New order
+* Order cancellation
+* New customer review
+
+---
+
+# 18. Important Business Rules
+
+Implement these rules carefully:
+
+1. Only approved marts appear in customer search.
+2. Only active marts can receive orders.
+3. Marts outside the selected radius should not appear.
+4. Products marked out-of-stock cannot be ordered.
+5. Customers cannot combine products from multiple marts in a single order.
+6. Mart owners can only manage their own mart and products.
+7. Admin has complete system access.
+8. Order prices must be stored at the time of purchase so historical orders don't change if product prices change later.
+9. If a mart is closed, users can browse it but cannot place an order.
+10. If a product becomes unavailable after being added to cart, validate stock again during checkout.
+11. Prevent duplicate orders caused by repeated payment requests.
+12. Validate payment status through the payment gateway before marking an online order as paid.
+
+---
+
+# 19. Homepage Sections
+
+The final homepage should follow this structure:
+
+1. Location header
+2. Search bar
+3. Advertisement carousel
+4. Categories
+5. "Marts Near You"
+6. "Best Offers"
+7. "Popular Products"
+8. "Recently Ordered"
+9. "Top Rated Marts"
+10. Footer/navigation
+
+Personalize these sections based on user location and previous orders.
+
+---
+
+# 20. Technical Requirements
+
+Build the application with a clean and scalable architecture.
+
+Recommended stack:
+
+**Frontend**
+
+* React / Next.js
+* TypeScript
+* Tailwind CSS
+* Modern component library
+
+**Backend**
+
+* Node.js
+* Express.js
+
+**Database**
+
+* PostgreSQL/Supabase
+
+**Authentication**
+
+* Supabase Auth or Firebase Auth
+
+**Maps & Location**
+
+* Google Maps API or Mapbox
+
+**Payments**
+
+* Razorpay for India
+
+**Storage**
+
+* Supabase Storage / Cloudinary
+
+**Notifications**
+
+* Firebase Cloud Messaging
+
+Use environment variables for all API keys and secrets.
+
+Never expose secret API keys in frontend code.
+
+---
+
+# 21. Deliver a Functional MVP
+
+Do not create only static UI mockups.
+
+Build a **fully functional application** where:
+
+* Users can register/login.
+* Location can be detected.
+* Nearby marts can be discovered.
+* Mart owners can register.
+* Admin can approve marts.
+* Mart owners can add products.
+* Customers can browse products.
+* Customers can add products to cart.
+* Customers can checkout.
+* Orders are created in the database.
+* Mart owners can accept and manage orders.
+* Customers can track orders.
+* Admin can manage the entire platform.
+* Advertisements are dynamically loaded.
+* Products, marts, users and orders are stored persistently.
+
+Seed the database with realistic demo data so the application is immediately testable.
+
+Create a polished, responsive interface suitable for both **mobile and desktop**.
+
+The final result should feel like a real **"nearby marts marketplace"**, not a basic CRUD application.
